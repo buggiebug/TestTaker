@@ -27,6 +27,7 @@ function AllQuestions(props) {
     //  //! Delete Question by Id...
     const deleteById = async(id)=>{
         await deleteQuestion(id)
+        await viewAllQuestionFun();
     }
 
   return (
