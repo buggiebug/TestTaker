@@ -102,10 +102,10 @@ function StartTest() {
             <div className={`${showSubmitBTN} question pt-2`}>
                   <div className="py-2 font-bold"><span className="">Q {indexState}.</span> <p className="ml-12 -mt-7">{showQuestionState.questionName}</p></div>
                   <div className="pt-3" id="options">
-                    <label className="options rounded-md hover:bg-neutral-700 hover:shadow-lg">{showQuestionState.option_1} <input type="radio" onChange={selectOption} value={showQuestionState.option_1} name="radio"/><span className="checkmark"></span> </label> 
-                    <label className="options rounded-md hover:bg-neutral-700 hover:shadow-lg">{showQuestionState.option_2} <input type="radio" onChange={selectOption} value={showQuestionState.option_2} name="radio"/><span className="checkmark"></span> </label> 
-                    <label className="options rounded-md hover:bg-neutral-700 hover:shadow-lg">{showQuestionState.option_3} <input type="radio" onChange={selectOption} value={showQuestionState.option_3} name="radio"/><span className="checkmark"></span> </label>
-                    <label className="options rounded-md hover:bg-neutral-700 hover:shadow-lg">{showQuestionState.option_4} <input type="radio" onChange={selectOption} value={showQuestionState.option_4} name="radio"/><span className="checkmark"></span> </label>
+                    <label className="options rounded-md hover:bg-neutral-700 hover:shadow-lg">{showQuestionState.option_1} <input type="radio" onChange={selectOption} checked={selectAnsState===showQuestionState.option_1} value={showQuestionState.option_1} name="radio"/><span className="checkmark"></span> </label> 
+                    <label className="options rounded-md hover:bg-neutral-700 hover:shadow-lg">{showQuestionState.option_2} <input type="radio" onChange={selectOption} checked={selectAnsState===showQuestionState.option_2} value={showQuestionState.option_2} name="radio"/><span className="checkmark"></span> </label> 
+                    <label className="options rounded-md hover:bg-neutral-700 hover:shadow-lg">{showQuestionState.option_3} <input type="radio" onChange={selectOption} checked={selectAnsState===showQuestionState.option_3} value={showQuestionState.option_3} name="radio"/><span className="checkmark"></span> </label>
+                    <label className="options rounded-md hover:bg-neutral-700 hover:shadow-lg">{showQuestionState.option_4} <input type="radio" onChange={selectOption} checked={selectAnsState===showQuestionState.option_4} value={showQuestionState.option_4} name="radio"/><span className="checkmark"></span> </label>
                   </div>
             </div>
 
