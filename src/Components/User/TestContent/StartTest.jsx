@@ -19,7 +19,7 @@ function StartTest() {
   const [validEmailState,setValidMailState] = useState("Invalid Email");
   const changeUserMailValue = (e)=>{
     const userMail = e.target.value;
-    if(userMail.includes("@") && userMail.includes(".com") && /\d/.test(String(userMail))){
+    if(userMail.includes("@") && userMail.includes(".com")){
       setValidMailState("")
     }else{
       setValidMailState("Invalid Email")
