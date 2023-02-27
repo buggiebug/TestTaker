@@ -18,7 +18,7 @@ function SeeAnswer() {
   }
   
   const sendMail = async(count)=>{
-    const fetchData = await fetch(`http://localhost:8080/api/v1/user/send-marks`,{
+    const fetchData = await fetch(`${process.env.REACT_APP_URL}/user/send-marks`,{
       method:"POST",
       headers:{
         "content-type":"application/json"

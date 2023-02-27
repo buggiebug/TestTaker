@@ -29,7 +29,7 @@ function CreateNewQuestion() {
   const uploadQuestion = (e)=>{
     e.preventDefault();
     createNewQuestion(newQuestionState);
-    setNewQuestionState({questionCategory:"Random",questionName:"",option_1:"",option_2:"",option_3:"",option_4:"",right_Answer:""})
+    setNewQuestionState({questionCategory:newQuestionState.questionCategory,questionName:"",option_1:"",option_2:"",option_3:"",option_4:"",right_Answer:""})
   }
 
   return (
