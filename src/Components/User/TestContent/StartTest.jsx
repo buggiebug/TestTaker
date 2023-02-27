@@ -15,6 +15,17 @@ function StartTest() {
 
   const ref = useRef();
 
+  const [userMailState,setUserMailState] = useState("");
+  const [validEmailState,setValidMailState] = useState("Invalid Email");
+  const changeUserMailValue = (e)=>{
+    const userMail = e.target.value;
+    if(userMail.includes("@") && userMail.includes(".com") && /\d/.test(String(userMail))){
+      setValidMailState("")
+    }else{
+      setValidMailState("Invalid Email")
+    }
+    setUserMailState(userMail);
+  }
 
   useEffect(() => {
     questionsSearchBySubjectName(state);
@@ -96,6 +107,10 @@ function StartTest() {
             {/* //! Show Instructions... */}
             <div className={`${showSubmitBTN === "hidden"?"visible":"hidden"}`}>
               <Instruction/>
+              <div className="flex flex-col justify-center items-center">
+                <input onChange={changeUserMailValue} value={userMailState} type="email" placeholder="user@mail.com" name="useremail" className="px-2 py-1 rounded-sm focus:ring-2 outline-none text-gray-900"/>
+                <p className={`mt-2 text-red-400 ${userMailState.length>0?"block":"hidden"}`}>{validEmailState}</p>
+              </div>
             </div>
 
             {/* //! Show Question... */}
@@ -135,10 +150,10 @@ function StartTest() {
               </div> */}
 
               {/* //! Submit, Start & View Score Button... */}
-              <div className="ml-auto mr-5 mx-3 mb-2 flex flex-wrap justify-evenly">
+              <div className={`${validEmailState.length===0?"flex":"hidden"} ml-auto mr-5 mx-3 mb-2 flex flex-wrap justify-evenly`}>
                 <button disabled={indexState >= 2? true:false} onClick={startTest} className={`${showStartBTN} px-3 py-2 ring-green-900 ring-1 focus:ring-2 bg-green-400 focus:bg-green-600 rounded-sm`}>Start</button>
                 <button disabled={submitBTNState} onClick={()=>{submitTest(showQuestionState)}} className={`${showSubmitBTN} ${submitBTNState === true ? "bg-transparent":" text-gray-200 rounded-sm hover:rounded-xl border border-gray-400 hover:bg-green-500 hover:text-white transition-all duration-500"} px-3 py-2 text-white rounded-sm`}>Submit & Next &nbsp;<i className="fa-solid fa-forward"></i></button> 
-                <Link to="/your-answer" state={{ansState}} className={`${indexState===countQuesState && submitBTNState ?"visible":"hidden"} mx-2 px-3 py-2 bg-green-400 hover:bg-blue-800 hover:text-white rounded-sm`}>View Score</Link> 
+                <Link to="/your-answer" state={{ansState,subjectName:state,userMailState}} className={`${indexState===countQuesState && submitBTNState ?"visible":"hidden"} mx-2 px-3 py-2 bg-green-400 hover:bg-blue-800 hover:text-white rounded-sm`}>View Score</Link> 
               </div>
 
             </div>

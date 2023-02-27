@@ -3,7 +3,7 @@ import {Link,useLocation} from "react-router-dom";
 
 function SeeAnswer() {
   const {state} = useLocation();
-  const {ansState} = state;
+  const {ansState,subjectName,userMailState} = state;
   
   //  //! Show the answer...
   const viewAnswerBTN = (id,el)=>{
@@ -17,17 +17,31 @@ function SeeAnswer() {
     })
   }
   
+  const sendMail = async(count)=>{
+    const fetchData = await fetch(`http://localhost:8080/api/v1/user/send-marks`,{
+      method:"POST",
+      headers:{
+        "content-type":"application/json"
+      },
+      body:JSON.stringify({subjectName,userMailState,count,ansState})
+    });
+    await fetchData.json();
+  }
+  
   const [countMarkState,setCountMarksState] = useState(0);
   useEffect(()=>{
     //  Add display [none] to each id...
-    let count = 1;
+    let count = 1,temp=0;
     ansState.forEach((e)=>{
       if(e.right_Answer === e.yourAnswer){
         setCountMarksState(count)
         count++;
+        temp++;
       }
       document.getElementById(e.id).style.display = "none";
     })
+    //  Pass the marks...
+    sendMail(temp);
     // eslint-disable-next-line
   },[])
 
@@ -37,8 +51,9 @@ function SeeAnswer() {
     <div className='pt-10 mx-5'>
         <div>
           <h3 className='font-mono uppercase text-center text-2xl'>Result :)</h3>
-          <div className='text-right pt-10 mr-10'>
-            <p className='inline-block text-red-800 text-xl font-serif'>You Scored : {countMarkState}</p>
+          <div className='flex justify-around items-center mt-10'>
+            <p className='text-lg text-gray-900'>{subjectName} Test</p>
+            <p className='font-serif text-lg'>You Scored : <span className='text-red-800 text-2xl'>{countMarkState}</span></p>
           </div>
         </div>
         <div className='flex flex-wrap justify-center items-center'>
