@@ -51,6 +51,7 @@ function StartTest() {
 
   const [quesNumber,setQuesNumber] = useState(1);
 
+  const [startTimerState,setStartTimerState] = useState(false);
   //  //! Start Test...
   const startTest = ()=>{
     setShowQuestionState({id:questionState[indexState]._id,questionNumber:quesNumber,questionName:questionState[indexState].questionName,option_1:questionState[indexState].option_1,option_2:questionState[indexState].option_2,option_3:questionState[indexState].option_3,option_4:questionState[indexState].option_4,right_Answer:questionState[indexState].right_Answer})
@@ -58,6 +59,7 @@ function StartTest() {
     setShowSubmitBTN("visible");
     setIndexState(indexState+1);
     setQuesNumber(quesNumber+1);
+    setStartTimerState(true);
   }
   //  //! Next Button...
   const nextBtn = () => {
@@ -76,6 +78,24 @@ function StartTest() {
   //     setIndexState(indexState-1);
   //   }
   // };
+    
+  const [timeMinState,setTimeMinState] = useState(0);
+  const [timeSecState,setTimeSecState] = useState(0);
+  useEffect(() => {
+    if(startTimerState){
+      if(timeSecState>=59){
+        setTimeMinState(timeMinState+1);
+        setTimeSecState(0);
+      }
+      const sec = setInterval(() => {
+        setTimeSecState(timeSecState+1);
+      },1000);
+      return ()=>clearInterval(sec);
+    }
+    // eslint-disable-next-line
+  }, [startTimerState,timeSecState]);
+
+
 
   //  //! Submit Test...
   const [answerState,setAnswerState] = useState({id:"",questionNumber:"",questionName:"",option_1:"",option_2:"",option_3:"",option_4:"",right_Answer:"",yourAnswer:""})
@@ -101,7 +121,10 @@ function StartTest() {
         <h3 className="text-blue-500 font-serif text-center text-4xl">
         {state} Test
         </h3>
-        <p className="text-center text-2xl font-mono mt-10">Total Question <span className="font-semibold">{showStartBTN==="hidden"?countQuesState:""}</span></p>
+        <div className="flex justify-between mt-10 mx-10">
+          <p className="text-center text-2xl font-mono">Total Question: <span className="font-semibold">{showStartBTN==="hidden"?countQuesState:""}</span></p>
+          <p className="text-lg"><i className="fa-solid fa-hourglass-start mr-2 animate-pulse text-cyan-900"></i> &nbsp;<span className="text-xl">{timeMinState} : {timeSecState}</span><span className="text-sm animate-pulse text-red-500"> sec</span></p>
+        </div>
         <div className="container flex justify-center items-center">
           <div className="quesContainer mt-5 my-5">
             {/* //! Show Instructions... */}
@@ -153,7 +176,7 @@ function StartTest() {
               <div className={`${validEmailState.length===0?"flex":"hidden"} ml-auto mr-5 mx-3 mb-2 flex flex-wrap justify-evenly`}>
                 <button disabled={indexState >= 2? true:false} onClick={startTest} className={`${showStartBTN} px-3 py-2 ring-green-900 ring-1 focus:ring-2 bg-green-400 focus:bg-green-600 rounded-sm`}>Start</button>
                 <button disabled={submitBTNState} onClick={()=>{submitTest(showQuestionState)}} className={`${showSubmitBTN} ${submitBTNState === true ? "bg-transparent":" text-gray-200 rounded-sm hover:rounded-xl border border-gray-400 hover:bg-green-500 hover:text-white transition-all duration-500"} px-3 py-2 text-white rounded-sm`}>Submit & Next &nbsp;<i className="fa-solid fa-forward"></i></button> 
-                <Link to="/your-answer" state={{ansState,subjectName:state,userMailState}} className={`${indexState===countQuesState && submitBTNState ?"visible":"hidden"} mx-2 px-3 py-2 bg-green-400 hover:bg-blue-800 hover:text-white rounded-sm`}>View Score</Link> 
+                <Link to="/your-answer" state={{ansState,subjectName:state,userMailState,timeMinState,timeSecState}} className={`${indexState===countQuesState && submitBTNState ?"visible":"hidden"} mx-2 px-3 py-2 bg-green-400 hover:bg-blue-800 hover:text-white rounded-sm`}>View Score</Link> 
               </div>
 
             </div>

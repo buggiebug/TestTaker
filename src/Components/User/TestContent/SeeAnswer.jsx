@@ -3,7 +3,7 @@ import {Link,useLocation} from "react-router-dom";
 
 function SeeAnswer() {
   const {state} = useLocation();
-  const {ansState,subjectName,userMailState} = state;
+  const {ansState,subjectName,userMailState,timeMinState,timeSecState} = state;
   
   //  //! Show the answer...
   const viewAnswerBTN = (id,el)=>{
@@ -23,7 +23,7 @@ function SeeAnswer() {
       headers:{
         "content-type":"application/json"
       },
-      body:JSON.stringify({subjectName,userMailState,count,ansState})
+      body:JSON.stringify({subjectName,userMailState,count,ansState,timeMinState,timeSecState})
     });
     await fetchData.json();
   }
@@ -54,6 +54,7 @@ function SeeAnswer() {
           <div className='flex justify-around items-center mt-10'>
             <p className='text-lg text-gray-900'>{subjectName} Test</p>
             <p className='font-serif text-lg'>You Scored : <span className='text-red-800 text-2xl'>{countMarkState}</span></p>
+            <p className='font-serif text-lg'>In: <span className='text-red-800 text-2xl'>{timeMinState}:{timeSecState}</span><span className="text-sm animate-pulse text-red-500"> sec</span></p>
           </div>
         </div>
         <div className='flex flex-wrap justify-center items-center'>
