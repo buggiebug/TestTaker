@@ -121,7 +121,7 @@ function StartTest() {
         <h3 className="text-blue-500 font-serif text-center text-4xl">
         {state} Test
         </h3>
-        <div className="flex justify-between mt-10 mx-10">
+        <div className="flex justify-between mt-10 mx-2 md:mx-10">
           <p className="text-center text-2xl font-mono">Total Question: <span className="font-semibold">{showStartBTN==="hidden"?countQuesState:""}</span></p>
           <p className="text-lg"><i className="fa-solid fa-hourglass-start mr-2 animate-pulse text-cyan-900"></i> &nbsp;<span className="text-xl">{timeMinState} : {timeSecState}</span><span className="text-sm animate-pulse text-red-500"> sec</span></p>
         </div>
