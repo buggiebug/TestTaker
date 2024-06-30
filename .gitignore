@@ -1,8 +1,15 @@
+question's backup
+
+# Backend
 # dependencies
-/node_modules
-
+/server/node_modules
 # production
-/build
+/server/config.env
 
-# .env
-.env
+# Frontend
+# dependencies
+/testtaker/node_modules
+# production
+/testtaker/build
+# production
+/testtaker/.env

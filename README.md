@@ -21,7 +21,7 @@ Download the Code or Clone it.
 
 #### `Available Scripts`
 In the project directory, you can run:
-#### `npm i`
+#### `npm ci`
 To install `node_modules` 
 #### `npm start`
 Runs the app in the development mode.\
