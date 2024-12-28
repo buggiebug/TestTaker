@@ -1,7 +1,6 @@
 # 😎 TestTaker WebApp 😎
 
-This app is hosted on `Netlify 😁` Open it on your browser via 
-#### https://testtaker.netlify.app/
+🚀 [Live App](https://testtaker.netlify.app/) - Explore the app now!
 
 ### `Login as Admin 👲`
 Use Email : [ demo@gmail.com ]
