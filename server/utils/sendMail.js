@@ -67,6 +67,6 @@ exports.sendMarksMail = async (subjectName,userMailState,count,ansState,timeMinS
           <h3>Time: ${timeMinState}:${timeSecState} sec</h3>
     ${str}`
   };
-  await transporter.sendMail(mailOptions)
+  return await transporter.sendMail(mailOptions)
 };
 

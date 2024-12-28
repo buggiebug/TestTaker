@@ -1,3 +1,6 @@
+// Dotenv...
+const dotenv = require("dotenv");
+dotenv.config();
 const express = require("express");
 const app = express();
 const morgan = require('morgan')
@@ -15,20 +18,12 @@ process.on("uncaughtException", (err) => {
   process.exit(1);
 });
 
-// Dotenv...
-const dotenv = require("dotenv");
-dotenv.config({ path: "./config.env" });
 
 // Cookie parser...
 const cookie = require("cookie-parser");
 app.use(cookie());
 
 app.use(express.json());
-
-
-app.get("/",(req,res)=>{
-  res.send("Hello World!");
-})
 
 // Connecting Database...
 const connectDB = require("./database/dbConnect");
@@ -39,9 +34,13 @@ const questionsRoute = require("./routes/questionRoute");
 const userRoute = require("./routes/userRoute");
 const adminRoute = require("./routes/adminRoute");
 
+app.get('/', (req,res)=>{return res.send("ok")});
 app.use("/api/v1", questionsRoute);
 app.use("/api/v1", userRoute);
 app.use("/api/v1/admin", adminRoute);
+
+const { ownApiCallForRender } = require("./cronJob/ownApiCallForRender");
+ownApiCallForRender();
 
 //  Error Handler...
 const errorMiddleware = require("./middleware/error");

@@ -7,14 +7,14 @@ function About() {
         <div className='flex flex-wrap justify-center items-center'>
           <ol className='list-disc'>
             <h3 className='mb-5 font-semibold font-mono text-xl'>TestTaker</h3>
-            <li>Here you can solve the MCQ Problems.</li>
+            <li>Here you can solve the MCQ problems.</li>
             <li>There are many topics & subjects MCQ available.</li>
-            <li>The solution of the questions will be mailed to your Email.</li>
-            <li>You can practive here by selecting your favorite topics.</li>
+            <li>The solution of the questions will be mailed to your email.</li>
+            <li>You can practice here by selecting your favorite topics.</li>
           </ol>
         </div>
         <div className='mt-12 grid place-items-center'>
-          <a className='text-lg font-mono text-gray-300' href="https://shubham-buggie.netlify.app/" target="_blank" rel="noopener noreferrer">😎 <span className='hover:underline'>Developer Details</span> 😎</a>
+          <a className='text-lg font-mono text-gray-300' href="https://0010.netlify.app/" target="_blank" rel="noopener noreferrer">😎 <span className='hover:underline'>Developer Details</span> 😎</a>
         </div>
       </div>
     </>

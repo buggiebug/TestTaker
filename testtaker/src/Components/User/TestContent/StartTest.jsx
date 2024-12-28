@@ -22,10 +22,14 @@ function StartTest() {
   const [validEmailState,setValidMailState] = useState("Invalid Email. 😒");
   const changeUserMailValue = (e)=>{
     const userMail = e.target.value;
-    if(userMail.includes("@")){
+
+    // eslint-disable-next-line
+    const regex = /^[a-zA-Z0-9_.+\-]+[\x40][a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
+     const isValid = regex.test(userMail);
+    if(isValid){
       setValidMailState("")
     }else{
-      setValidMailState("Invalid Email. 😒")
+      setValidMailState("Invalid Email Address. 😒")
     }
     setUserMailState(userMail);
   }
@@ -123,6 +127,12 @@ function StartTest() {
     // eslint-disable-next-line
   },[answerState])
 
+  useEffect(()=>{
+    if(indexState===countQuesState && submitBTNState){
+      setStartTimerState(false);
+    }
+  }, [countQuesState, indexState, submitBTNState])
+
 
   return (
     <>
@@ -150,10 +160,10 @@ function StartTest() {
             <div className={`${showSubmitBTN} question pt-2`}>
                   <div className="py-2 font-bold"><span className="">Q {indexState}.</span> <p className="ml-12 -mt-7">{showQuestionState.questionName}</p></div>
                   <div className="pt-3" id="options">
-                    <label className="options rounded-md hover:bg-neutral-700 hover:shadow-lg">{showQuestionState.option_1} <input type="radio" onChange={selectOption} checked={selectAnsState===showQuestionState.option_1} value={showQuestionState.option_1} name="radio"/><span className="checkmark"></span> </label> 
-                    <label className="options rounded-md hover:bg-neutral-700 hover:shadow-lg">{showQuestionState.option_2} <input type="radio" onChange={selectOption} checked={selectAnsState===showQuestionState.option_2} value={showQuestionState.option_2} name="radio"/><span className="checkmark"></span> </label> 
-                    <label className="options rounded-md hover:bg-neutral-700 hover:shadow-lg">{showQuestionState.option_3} <input type="radio" onChange={selectOption} checked={selectAnsState===showQuestionState.option_3} value={showQuestionState.option_3} name="radio"/><span className="checkmark"></span> </label>
-                    <label className="options rounded-md hover:bg-neutral-700 hover:shadow-lg">{showQuestionState.option_4} <input type="radio" onChange={selectOption} checked={selectAnsState===showQuestionState.option_4} value={showQuestionState.option_4} name="radio"/><span className="checkmark"></span> </label>
+                    <label className="options rounded-md hover:bg-neutral-700 hover:shadow-lg">{showQuestionState.option_1} <input disabled={indexState===countQuesState && submitBTNState} type="radio" onChange={selectOption} checked={selectAnsState===showQuestionState.option_1} value={showQuestionState.option_1} name="radio"/><span className="checkmark"></span> </label> 
+                    <label className="options rounded-md hover:bg-neutral-700 hover:shadow-lg">{showQuestionState.option_2} <input disabled={indexState===countQuesState && submitBTNState} type="radio" onChange={selectOption} checked={selectAnsState===showQuestionState.option_2} value={showQuestionState.option_2} name="radio"/><span className="checkmark"></span> </label> 
+                    <label className="options rounded-md hover:bg-neutral-700 hover:shadow-lg">{showQuestionState.option_3} <input disabled={indexState===countQuesState && submitBTNState} type="radio" onChange={selectOption} checked={selectAnsState===showQuestionState.option_3} value={showQuestionState.option_3} name="radio"/><span className="checkmark"></span> </label>
+                    <label className="options rounded-md hover:bg-neutral-700 hover:shadow-lg">{showQuestionState.option_4} <input disabled={indexState===countQuesState && submitBTNState} type="radio" onChange={selectOption} checked={selectAnsState===showQuestionState.option_4} value={showQuestionState.option_4} name="radio"/><span className="checkmark"></span> </label>
                   </div>
             </div>
 
@@ -184,7 +194,7 @@ function StartTest() {
 
               {/* //! Submit, Start & View Score Button... */}
               <div className={`${validEmailState.length===0?"flex":"hidden"} ml-auto mr-5 mx-3 mb-2 flex flex-wrap md:justify-evenly justify-center items-center`}>
-                <button disabled={indexState >= 2? true:false} onClick={startTest} className={`${showStartBTN} px-5 py-2 outline-none text-white ring-green-900 ring-1 focus:ring-2 bg-green-700 hover:bg-green-900 rounded-sm`}>Start</button>
+                <button disabled={indexState >= 2? true:false} onClick={startTest} className={`${showStartBTN} px-5 py-2 outline-none text-black ring-black ring-1 focus:ring-2 bg-white hover:bg-black hover:text-white rounded-sm`}>Start</button>
                 <button disabled={submitBTNState} onClick={()=>{submitTest(showQuestionState)}} className={`${showSubmitBTN} ${submitBTNState === true ? "bg-transparent":" text-gray-200 rounded-sm hover:rounded-xl border border-gray-400 hover:bg-green-700 hover:text-white transition-all duration-500"} px-3 py-2 text-white rounded-sm`}>Submit & Next &nbsp;<i className="fa-solid fa-forward"></i></button> 
                 <Link to="/your-answer" state={{ansState,subjectName:state,userMailState,timeMinState,timeSecState}} className={`${indexState===countQuesState && submitBTNState ?"visible":"hidden"} mx-2 px-3 py-2 bg-green-700 hover:bg-green-900 text-white rounded-sm`}>View Score</Link> 
               </div>

@@ -188,16 +188,30 @@ exports.submitMyTest = catchAsyncError(async (req, res, next) => {
   });
 
   try {
+    const userMail = String(userMailState).trim().toLowerCase()
+    const isTestExist = await TestModel.findOne({
+      subjectName,
+      mailTo: userMail,
+      "marks.total": totalMarks,
+      "marks.gain": count,
+      "timeTaken.timeMin": timeMinState,
+      "timeTaken.timeSec": timeSecState
+    });
+    if(isTestExist) {
+      return res
+      .status(200)
+      .json({ success: true, message: "You have received the test result on your mail.. 👌" });
+    }
     await TestModel.create({
       subjectName: subjectName,
-      mailTo: String(userMailState).toLowerCase(),
+      mailTo: userMail,
       marks: { total: totalMarks, gain: count },
       timeTaken: { timeMin: timeMinState, timeSec: timeSecState },
       answers,
     });
     await sendMarksMail(
       subjectName,
-      userMailState,
+      userMail,
       count,
       ansState,
       timeMinState,
